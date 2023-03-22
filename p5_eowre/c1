@@ -1,0 +1,32 @@
+.data
+	firstmessage: .asciiz "\nInput two positive integers\n"
+	secondmessage: .asciiz "\nProduct of the two positive integers \n"
+	zeroAsFloat: .float 0.0
+	oneAsFloat: .float 1.0
+
+.text
+#Getting user's input
+	lwc1 $f1, zeroAsFloat #store zero
+	lwc1 $f2, oneAsFloat
+	li $v0, 4
+	la $a0, firstmessage
+	syscall
+	li $v0, 6
+	syscall
+	mov.s $f3, $f0 #A
+	li $v0, 6
+	syscall
+	mov.s $f4, $f0 #B
+	j Loop
+	
+Loop:	add.s $f5, $f5, $f3
+	sub.s $f4, $f4, $f2
+	c.eq.s $f4, $f1
+	bc1t Exit
+	j Loop
+
+Exit:   li $v0, 2
+	mov.s $f12, $f5
+	syscall
+	li $v0, 10
+	syscall

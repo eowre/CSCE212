@@ -1,0 +1,40 @@
+.data 
+	w: .float 160
+	h: .float 74
+	constant: .float 703
+	lower: .float 18.5
+	upper: .float 25.0
+	under: .asciiz " Underweight"
+	normal: .asciiz " Normal"
+	over: .asciiz " Overweight"
+.text
+	l.s $f1, w
+	l.s $f2, h
+	l.s $f3, constant
+	l.s $f4, lower
+	l.s $f5, upper
+	
+	mul.s $f2, $f2, $f2
+	div.s $f8, $f1, $f2
+	mul.s $f0, $f8, $f3
+	
+	c.lt.s $f0, $f4
+	bc1t Und
+	c.lt.s $f0, $f5
+	bc1t Nor
+	la $a0, over
+	j exit
+Und:
+	la $a0, under
+	j exit
+Nor:
+	la $a0, normal
+	j exit
+
+exit:
+	li $v0, 2
+	mov.s $f12, $f0
+	syscall
+	li $v0, 4
+	syscall
+	

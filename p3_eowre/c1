@@ -1,0 +1,32 @@
+.data
+	firstmessage: .asciiz "Enter 3 positive integers\n"
+	lastmessage: .asciiz  "Largest number\n"
+.text
+	li $v0, 4
+	la $a0, firstmessage
+	syscall
+	#user enterd numbers
+	li $v0, 5
+	syscall
+	move $t0, $v0 #a
+	li $v0, 5
+	syscall
+	move $t1, $v0 #b
+	li $v0, 5
+	syscall
+	move $t2, $v0 #c
+	move $t3, $t0
+	bgt $t1, $t0, Swap1
+	bgt $t2, $t0, Swap2
+	j exit
+Swap1:  bgt $t2, $t1, Swap2
+	move $t3, $t1
+	j exit
+Swap2: move $t3, $t2
+	j exit
+exit:   li $v0, 4
+	la $a0, lastmessage
+	syscall
+	add $a0, $t3, $zero
+	li $v0, 1
+	syscall

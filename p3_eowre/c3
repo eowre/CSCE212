@@ -1,0 +1,21 @@
+.data
+	intro: .asciiz "Enter number of homeworks, average HW time, number of exercises, average EX time:"
+	
+.text
+	# TODO: propmt for and input 
+	la $a0, intro
+	li $v0, 4
+	syscall
+	li $v0, 6
+	syscall
+	move $1, $f0 #numHW
+	li $v0, 6
+	syscall
+	move $t2, $f0 #avgHW
+	li $v0, 6
+	syscall
+	move $t3, $f0 #numEX
+	li $v0, 6
+	syscall
+	move $t4, $f0 #avgEX
+	

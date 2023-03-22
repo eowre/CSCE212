@@ -1,0 +1,24 @@
+.data
+	firstmessage: .asciiz "Enter 4 positive integers\n"
+.text
+	#user enterd numbers
+	li $v0, 5
+	syscall
+	move $t0, $v0 #a
+	li $v0, 5
+	syscall
+	move $t1, $v0 #b
+	li $v0, 5
+	syscall
+	move $t2, $v0 #c
+	li $v0, 5
+	syscall
+	move $t3, $v0 #d
+	add $t4, $t0, $t1 #a+b
+	add $t5, $t2, $t3 #c+d
+	addi $t6, $t1, 3 #b+3
+	sub $t7, $t4, $t5 # (a+b) - (c+d)
+	add $a0, $t7, $t6 #(a+b) - (c+d) + (b+3)
+	li $v0, 1
+	syscall
+	

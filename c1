@@ -1,0 +1,20 @@
+.data
+	usermessage: .space 20
+	firstmessage: .asciiz "\nHello, may I have your name, please?\n"
+	secondmessage: .asciiz "Hello, "
+
+.text
+#Getting user's input as text
+	li $v0, 4
+	la $a0, firstmessage
+	syscall
+	li $v0, 8
+	la $a0, usermessage
+	li $a1, 20
+	syscall
+#displaying the user message
+	li $v0, 4
+	la $a0, secondmessage
+	syscall
+	la $a0, usermessage
+	syscall
